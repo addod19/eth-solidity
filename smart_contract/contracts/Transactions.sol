@@ -10,8 +10,8 @@ contract Transactions {
         address sender;
         address receiver;
         uint amount;
-        uint256 timstamp;
         string message;
+        uint256 timstamp;
         string keyword;
     }
 
@@ -20,13 +20,15 @@ contract Transactions {
     function addToBlockChain( address payable receiver, uint amount, string memory message, string memory keyword ) public {
         transactionCounter += 1;
         transactions.push(TransferStruct(msg.sender, receiver, amount, message, block.timestamp, keyword));
+    
+        emit Transfer(msg.sender, receiver, amount, message, block.timestamp, keyword);
     }
 
     function getAllTransaction() public view returns (TransferStruct[] memory) {
-        // return transactions;
+        return transactions;
     }
 
     function getTransactionCOunt() public view returns (uint256) {
-        // return transactionCount;
+        return transactionCounter;
     }
 }
